@@ -1,0 +1,1688 @@
+<html>
+
+<head>
+    <title>فرمول های ورزشی و سلامتی</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./statics/main.css">
+    <link href='https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css' rel='stylesheet' type='text/css'>
+
+    <script>
+        function calculate_bmr() {
+            let weight = document.getElementById("weight").value;
+            let height = document.getElementById("height").value;
+            let age = document.getElementById("age").value;
+            let result = document.getElementById("result_bmr");
+            result.style.display = "block";
+
+            if (age == "" || height == "" || weight == "") {
+                result.innerHTML = "<strong>لطفا همه فیلد ها را پر کنید</strong>";
+                return;
+            }
+
+            let BMR = 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
+
+            result.innerHTML = "میزان کالری مورد نیاز شما: <br>" + BMR + " کالری خام";
+        };
+
+        function calculate_calories() {
+            let execrise_amount = document.getElementById("execrise").value;
+            let bmr = document.getElementById("bmr").value;
+            let result = document.getElementById("result_calories");
+            result.style.display = "block";
+
+            if (bmr == "" || execrise_amount == "") {
+                result.innerHTML = "<strong>لطفا همه فیلد ها را پر کنید</strong>";
+                return;
+            }
+
+            let calories = bmr * execrise_amount;
+
+            result.innerHTML = "میزان کالری مورد نیاز شما: <br>" + calories + " کالری";
+        };
+
+        function calculate_heartbeat() {
+            let age = document.getElementById("age_heartbeat").value;
+            let ave = document.getElementById("ave_heartbeat").value;
+            let execrise_heartbeat = document.getElementById("execrise_heartbeat").value;
+
+            let result = document.getElementById("result_heartbeat");
+            result.style.display = "block";
+
+            if (age == "" || ave == "" || execrise_heartbeat == "") {
+                result.innerHTML = "<strong>لطفا همه فیلد ها را پر کنید</strong>";
+                return;
+            }
+
+            execrise_heartbeat /= 100;
+            let max_heartbeat = 220 - age;
+            let X = (max_heartbeat - ave) * execrise_heartbeat;
+            let reqired_heartbeat = X + ave;
+
+            result.innerHTML = "ضربان قلب مورد نیاز شما برای تمرین: " + reqired_heartbeat + " ضربان قلب <br>حداکثر ضربان قلب: " + max_heartbeat + " ضربان قلب";
+        }
+    </script>
+</head>
+
+<body>
+    <div id="wrp">
+        <h3 id="title">«مولی امیرالمؤمنین علیه‌السلام»: اَلصِّحةُ لایَعرِفُ قَدرَها الاّ المَرضی. جز بیماران، كسی
+            قدر
+            صحت و سلامتی را نمی‌داند.</h3>
+        <h3 id="title">فرمول های مفید ورزشی و سلامتی، ساخته شده توسط علیرضا آهنی</h3>
+        <div id="wrp">
+
+            <h2 id="title">محاسبه میزان BMR</h2>
+            این ابزار میزان BMR خام شما را محاسبه میکند.
+            لطفا فرم زیر را پر کنید و روی دکمه محاسبه کلیک کنید.
+            <br>
+
+            <input type="number" id="weight" placeholder="وزن به کیلوگرم">
+            <input type="number" id="height" placeholder="قد به سانتی متر">
+            <input type="number" id="age" placeholder="سن به سال">
+            <button id="calc" onclick="calculate_bmr();">محاسبه</button>
+            <br>
+
+            <span id="result_bmr" style='display:none;'></span>
+        </div>
+        <div id="wrp">
+            <h2 id="title">تبدیل BMR به مقدار کالری مورد نیاز</h2>
+            این ابزار میزان BMR را به میزان کالری که شما نیاز به مصرف دارید، تبدیل میکند.
+            برای اینکار ابتدا میزان BMR را وارد کرده و میزان ورزش خود را انتخاب کنید.
+            سپس روی دکمه محاسبه کلیک کنید.
+            <br>
+
+            <input type="number" id="bmr" placeholder="میزان BMR">
+
+            <select name="execrise" id="execrise">
+                <option value="1.2">ورزش نمیکنم</option>
+                <option value="1.375">کمی ورزش میکنم ( 1 تا 3 روز در هفته)</option>
+                <option value="1.55">به میزان متوسط ورزش میکنم ( 3 تا 5 روز در هفته)</option>
+                <option value="1.725">به میزان زیاد ورزش میکنم ( 6 تا 7 روز در هفته)</option>
+                <option value="1.9">میزان بسیار زیادی ورزش میکنم ( 2 بار در هر روز هفته)</option>
+            </select>
+
+            <button id="calc" onclick="calculate_calories();">محاسبه</button>
+
+            <span id="result_calories" style='display:none;'></span>
+        </div>
+        <div id="wrp">
+            <h2 id="title">محاسبه زبان قلب برای ورزش</h2>
+            این ابزار به شما کمک میکند تا میزان ضربان قلب مورد نیاز برای میزان ورزش دلخواه را پیدا کنید. هچنین حداکثر
+            ضربان
+            قلب شما را نیز محاسبه میکند.
+            لطفا فرم زیر را پر کنید و روی دکمه محاسبه کلیک کنید.
+            <br>
+
+            <input type="number" id="age_heartbeat" placeholder="سن">
+            <input type="number" id="ave_heartbeat" placeholder="ضربان قلب استراحت">
+            <input type="number" id="execrise_heartbeat" placeholder="شدت تمرین مورد علاقه (از 0 تا 100)" style="width:300px">
+
+            <button id="calc" onclick="calculate_heartbeat();">محاسبه</button>
+
+            <span id="result_heartbeat" style='display:none;'></span>
+        </div>
+
+        <div id="wrp">
+            <h2 id="title">کالری غذاهای مختلف</h2>
+            <a
+                href="https://kermany.com/%DA%A9%D8%A7%D9%84%D8%B1%DB%8C-%D8%BA%D8%B0%D8%A7%D9%87%D8%A7%DB%8C-%D9%BE%D8%B1%D9%85%D8%B5%D8%B1%D9%81/">منبع
+                اطلاعات</a>
+            <table id="gradient-style" dir="rtl" border="0" width="100%">
+                <tbody>
+                    <tr id="heading">
+                        <th width="140">ماده غذائی</th>
+                        <th width="70">مقدار</th>
+                        <th width="50">کالری</th>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آش جو</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آش دوغ</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۲۱۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آش رشته</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۲۶۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آجیل سنتی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آجیل بدون پوست</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۶۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آرد ذرت</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۳۷۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آرد گندم</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۳۴۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آلبالو ( کمپوت)</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۸۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آلبالو با هسته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آلبالو تازه با هسته</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">انجیر تازه</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۳۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">انجیر (تازه)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۷۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">انجیر خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">انگور</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">انگور(آب)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مغز بادام&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۷۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پودر بادام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۸۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">بادام هندی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۵۵۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">بادام زمینی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۶۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">بادمجان</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">برنج پخته (آبکش)</td>
+                        <td width="70">یک کفگیر</td>
+                        <td width="50">۲۳۸</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">بستنی پاستوریزه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">به</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">بیسکویت ساقه طلایی</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۵۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">بیفتک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پاچه پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پرتقال</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۶۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پرتقال (آب)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۰۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مغز پسته</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پودر پسته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۷۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تخم کدو</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۵۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تخم مرغ (زرده تنها)</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۵۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تخم مرغ (سفیده تنها)</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تخم مرغ آب پز</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۷۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تخم مرغ عسلی</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۷۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تخم مرغ نیمرو کم روغن</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۹۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تخم هندوانه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۵۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ترب</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تربچه</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ترخون خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۹۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">جگر سفید</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۱۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">جگر مرغ پخته</td>
+                        <td width="70"><span dir="ltr">۲۰</span> گرم</td>
+                        <td width="50">۱۳۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">جگر مرغ (دوپیازه)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">جگر یک سیخ</td>
+                        <td width="70">۵۰گرم</td>
+                        <td width="50">۱۱۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">جو&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">چاشنی مایونز</td>
+                        <td width="70">۱ قاشق غذاخوری</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">چای تلخ</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">چای شیرین (۴حبه قند)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۴۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">چغندر پخته (لبو)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">چغندر خام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خرما</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خرما با هسته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خرما (چیپس)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۷۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خرمالو</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۱۱۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خرمای دگلت نور</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خرمای مجول</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۷۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خیار</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خیار شور</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تخمه آفتابگردان</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۹۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">دنت دسر کرم کارامل</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۲۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">روغن زیتون</td>
+                        <td width="70">یک قاشق</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">روغن نباتی</td>
+                        <td width="70">۱ قاشق</td>
+                        <td width="50">۱۲۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ریحان</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ریواس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">زبان گوساله</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">زبان گوسفند</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">زردآلو تازه</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۱۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">زردآلو(برگه خشک)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">زردآلو(کمپوت)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۱۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">زیتون پرورده</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۰۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سوپ گوجه فرنگی</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سوپ سبزیجات</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۷۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سوپ جو</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سوخاری (نان)</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۴۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سوسیس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سوسیس بندری</td>
+                        <td width="70">۱ قاشق</td>
+                        <td width="50">۴۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سویا (آجیل)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۴۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سیب با پوست</td>
+                        <td width="70">۱ عدد&nbsp;</td>
+                        <td width="50">۸۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سیب زمینی آبپز</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۷۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سیب زمینی (پوره)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شرینی خشک</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۲۲۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شکر سفید</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۸۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شکر قهوه&zwnj;ای</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۸۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شکلات تلخ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۹۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شکلات صبحانه</td>
+                        <td width="70">یک قاشق</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شکوفه ذرت بدون روغن</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۲۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شلغم</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شلیل</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۶۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شنبلیله</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شوید(شبد)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">عدسی</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">عدس (دال عدس)</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۱۵۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">عسل</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">عناب خشک</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">فرنی</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">فلفل سبزیا قرمز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">فلافل</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">فندق</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">قارچ خام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">قره قوروت</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کدو حلوایی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کدو سبز خام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کرفس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کره گیاهی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۷۱۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کره حیوانی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۷۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کشک خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۷۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کشک بادمجان</td>
+                        <td width="70">۱ قاشق</td>
+                        <td width="50">۵۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کشمش</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۹۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کلم پیچ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کلم پلو با گوشت</td>
+                        <td width="70">۱ قاشق</td>
+                        <td width="50">۴۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کیک شکلاتی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۶۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کیک یزدی متوسط</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">&nbsp;گردو (مغز)</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۳۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گریپ فروت&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گریپ فروت (آب)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۸۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گرمک</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۸۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۸۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گشنیز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گلابی متوسط</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گندم (سبوس)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۱۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوشت بوقلمون</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوشت قرمز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوشت کوبیده</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوشت ماهی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوشت مرغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوجه فرنگی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گیلاس</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">لپه خام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">لپه پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۱۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خوراک لوبیا سبز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۳۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">لیمو ترش</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">لیمو شیرین</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مارچوبه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مارمالاد</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مارشمالو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۳۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ماست</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ماست کم چرب</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ماست چکیده</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ماکارونی با مخلفات</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۲۴۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ماکارونی (سالاد)</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۳۲۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مغز گردو</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۵۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">موز</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۱۰۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شیرموز</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۵۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">میگو سوخاری</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۲۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نارگیل (پودر)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۷۲۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نارگیل&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شیرینی نارگیلی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۹۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نارنج</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۴۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نارنگی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان سنگک (کف دست)</td>
+                        <td width="70"><span dir="ltr">۳۰</span> گرم</td>
+                        <td width="50">۷۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان بربری (کف دست)</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۷۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان لواش&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نخود پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۶۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نخود فرنگی (خام)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نوشابه</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نوشمک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ماهی قزل آلا</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آلوی زرد و قرمز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آناناس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آناناس (کمپوت)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۷۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آب آناناس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آلوئه ورا</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">اسفناج خام</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آلو بخارا</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۰۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">انار&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">رب انار</td>
+                        <td width="70">۱۰۰کرم</td>
+                        <td width="50">۲۹۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">انبه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">باقلا</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">باقلا سبز</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۱۳۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">باقلا خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">باقلوا&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۹۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">بامیه(سبز)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">برگ چغندر</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">برگ مو (دلمه)</td>
+                        <td width="70">۱ عدد</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">برنج (کته)</td>
+                        <td width="70">۱ کفگیر&nbsp;</td>
+                        <td width="50">۲۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">برنج قهوه&zwnj;ای (پخته)</td>
+                        <td width="70">۱ کفگیر</td>
+                        <td width="50">۲۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شیر برنج</td>
+                        <td width="70">۱ لیوان</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پفک&nbsp;</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۴۸۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پنیر سفید</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۶۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پنیر خامه&zwnj;ای</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پنیر پیتزا</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۹۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پولکی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۱۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پوره سیب زمینی</td>
+                        <td width="70">یک لیوان</td>
+                        <td width="50">۱۸۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پیاز</td>
+                        <td width="70">یک عدد</td>
+                        <td width="50">۴۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پیتزا چیکن</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۸۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">پیتزا پپرونی</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۲۶۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تخم آفتابگردان</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۸۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تره</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تمبر هندی با دانه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۱۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تمبر هندی بدون دانه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۴۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">تمشک&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">تن ماهی با روغن&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۸۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">توت سیاه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">توت سفید خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۶۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">توت فرنگی</td>
+                        <td style="text-align: center;" width="70">۱۰۰گرم</td>
+                        <td width="50">۳۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">جعفری</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">چیپس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۳۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">چیپس و پنیر</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۹۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">حلوا</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">حلوا ارده</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۳۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">حلیم گندم</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۸۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خامه سفت</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خامه شل</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خاویار</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۶۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">&nbsp;آب خربزه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">خربزه</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">خردل</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">دل گوسفند پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۸۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">دل مرغ پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۸۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">دلمه برگ مو</td>
+                        <td width="70">یک عدد متوسط</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">دوغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آرد ذرت</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۷۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ذرت بو داده با روغن</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۰۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ذرت شکوفه کم روغن</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۷۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">دانه ذرت پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۹۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">رطب</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">روغن حیوانی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۸۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">زیتون سبز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">زیتون سیاه</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۲۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ژله آماده شده&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ژله (پودر)</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۶۶</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">ساندویچ مرغ</td>
+                        <td width="70">۱۰۰ گرم&nbsp;</td>
+                        <td width="50">۲۸۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ساندویچ همبرگر</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۹۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سرکه انگور</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۸</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سمنو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سنجد</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۳۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سنگدان مرغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۵۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سیب زمینی آب پز</td>
+                        <td width="70"><span dir="ltr">۱۱۰</span> گرمی</td>
+                        <td width="50">۸۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سیب زمینی سرخ کرده</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۱۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آب سیب</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کمپوت سیب&nbsp;</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۶۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">سیر</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۴۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سیرابی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۳۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شاهی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شربت آلبالو</td>
+                        <td width="70"><span dir="ltr">۱۰۰</span> گرم</td>
+                        <td width="50">۲۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شربت پرتقال</td>
+                        <td width="70">۱۰۰ گرم&nbsp;</td>
+                        <td width="50">۲۱۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شربت افرا</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شیر کاکائو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۸۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شیربز</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۶۹</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شیرخشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۹۶</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شیر گاو کم چرب</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">شیرگاو پرچرب</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۸</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">شیر سویا</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">صدف دریایی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۶۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">طالبی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آب طالبی(بدون شکر)</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">جوانه عدس&nbsp;</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۸۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">قلوه گوسفند</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۶۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">قند</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۳۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">قهوه تلخ</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کاکائو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۲۸</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کالباس</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کاهو</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کاهو فرانسوی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کباب برگ (یک سیخ)</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۶۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کباب کوبیده (یک سیخ)</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۷۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کتلت</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۰۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کلم بروکلی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کلم بروکسل (فندقی)</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کلم قرمز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کله پاچه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کمپوت گیلاس</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۶۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">کنجد</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۷۳</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کوفته تبریزی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۷۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">چیز کیک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۲۱</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کیک مرغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۴۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">پنکیک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کنسرو گوجه فرنگی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوجه سبز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۴۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوجه فرنگی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آب گوجه فرنگی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">رب گوجه فرنگی</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۸۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">سس کچاپ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۹۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوشت شترمرغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوشت گوسفندی آبپز</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">گوشت شتر</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">گوشت گوساله</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">لوبیا چشم بلبلی پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۹۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">لوبیا سبز پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">لوبیا سفید پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۴۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">لوبیا چیتی پخته</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">لوبیا قرمز پخته</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۱۲۷</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">آب لیمو ترش</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">آب لیمو شیرین</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مربای گل سرخ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۹۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مربای انجیر</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰۵</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مربای تمشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۲۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مربای سیب</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۲۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مربای بالنگ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۳۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مربای به</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۳۲</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مربای هویج</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۷۲</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مربای آلبالو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۳۴۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">ران مرغ</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۱۸۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مغز تخمه هندوانه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۵۸۹</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مغز کله پاچه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۷۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">مغز تخمه آفتابگردان</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">مغز فندق</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۶۳۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان جو</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان خشک</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۹۵</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان روغنی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۸۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان باگت&nbsp;</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۵۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان خامه ای&nbsp;</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۵۰۰</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان تافتون&nbsp;</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۲۸۴</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان برنجی</td>
+                        <td width="70">۱۰۰ گرم&nbsp;</td>
+                        <td width="50">۲۲۱</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان سوخاری(کعک)</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۰۷</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">نان تست</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۱۳</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">نان گندم محلی</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۲۸۰</td>
+                    </tr>
+                    <tr align="center">
+                        <td width="140">کمپوت هلو</td>
+                        <td width="70">۱۰۰ گرم</td>
+                        <td width="50">۴۴</td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td width="140">هندوانه</td>
+                        <td width="70">۱۰۰گرم</td>
+                        <td width="50">۳۰</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
