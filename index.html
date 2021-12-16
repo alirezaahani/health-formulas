@@ -7,6 +7,13 @@
     <link href='https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css' rel='stylesheet' type='text/css'>
 
     <script>
+
+        function round_to_n(x, n) {
+            if (isNaN(x) || isNaN(n)) return false;
+            var m = Math.pow(10, n);
+            return Math.round(x * m) / m;
+        }
+
         function calculate_bmr() {
             let weight = document.getElementById("weight").value;
             let height = document.getElementById("height").value;
@@ -20,6 +27,7 @@
             }
 
             let BMR = 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
+            BMR = round_to_n(BMR, 2);
 
             result.innerHTML = "میزان کالری مورد نیاز شما: <br>" + BMR + " کالری خام";
         };
@@ -36,6 +44,7 @@
             }
 
             let calories = bmr * execrise_amount;
+            calories = round_to_n(calories, 2);
 
             result.innerHTML = "میزان کالری مورد نیاز شما: <br>" + calories + " کالری";
         };
@@ -57,8 +66,27 @@
             let max_heartbeat = 220 - age;
             let X = (max_heartbeat - ave) * execrise_heartbeat;
             let reqired_heartbeat = X + ave;
+            reqired_heartbeat = round_to_n(reqired_heartbeat, 2);
+            max_heartbeat = round_to_n(max_heartbeat, 2);
 
             result.innerHTML = "ضربان قلب مورد نیاز شما برای تمرین: " + reqired_heartbeat + " ضربان قلب <br>حداکثر ضربان قلب: " + max_heartbeat + " ضربان قلب";
+        }
+
+        function calculate_bmi() {
+            let weight = document.getElementById("bmi_weight").value;
+            let height = document.getElementById("bmi_height").value;
+            height /= 100;
+            let result = document.getElementById("bmi_results");
+            result.style.display = "block";
+
+            if (weight == "" || height == "") {
+                result.innerHTML = "<strong>لطفا همه فیلد ها را پر کنید</strong>";
+                return;
+            }
+
+            let bmi = weight / (height * height);
+            bmi = round_to_n(bmi, 2);
+            result.innerHTML = "شاخص توده بدنی: " + bmi;
         }
     </script>
 </head>
@@ -115,7 +143,8 @@
 
             <input type="number" id="age_heartbeat" placeholder="سن">
             <input type="number" id="ave_heartbeat" placeholder="ضربان قلب استراحت">
-            <input type="number" id="execrise_heartbeat" placeholder="شدت تمرین مورد علاقه (از 0 تا 100)" style="width:300px">
+            <input type="number" id="execrise_heartbeat" placeholder="شدت تمرین مورد علاقه (از 0 تا 100)"
+                style="width:300px">
 
             <button id="calc" onclick="calculate_heartbeat();">محاسبه</button>
 
@@ -123,11 +152,68 @@
         </div>
 
         <div id="wrp">
+            <h2 id="title">محاسبه BMI</h2>
+            این ابزار به شما کمک میکند تا BMI یا شاخص توده بدنی خود را محاسبه کنید. شاخص توده بدنی یا بی‌ام‌آی (به
+            انگلیسی: body mass index) سنجشی آماری برای مقایسه وزن و قد یک فرد است. در واقع این سنجش میزان چاقی را
+            اندازه‌گیری نمی‌کند بلکه ابزاری مناسب است تا سلامت وزن فرد با توجه به قدش تخمین زده شود.
+            برای اینکار ابتدا وزن به کیلوگرم و قد به سانتی متر خود را وارد کنید.
+            <br>
+
+            <input type="number" id="bmi_weight" placeholder="وزن به کیلوگرم">
+            <input type="number" id="bmi_height" placeholder="قد به سانتی متر">
+
+            <button id="calc" onclick="calculate_bmi();">محاسبه</button>
+
+            <span id="bmi_results" style='display:none;'></span>
+        </div>
+
+        <div id="wrp">
+            <h2 id="title">شاخص توده بندی مناسب</h2>
+            افراد در هر سن و سالی بهتر است که شاخص توده بدنی یا BMI خود را در یک محدوده خاص نگاه دارند. در جدول زیر BMI
+            توصیه شده و مناسبِ افراد در سنین مختلف از نوجوانی تا کهنسالی درج شده است. افراد بهتر است در سنین زیر شاخص
+            توده بدنی متناسبی بین 21 تا 27 داشته باشند.
+            <table dir="rtl" border="0" width="100%">
+                <tbody>
+                    <tr align="center" bgcolor="lightgray">
+                        <td><b>محدوده سنی</b>
+                        </td>
+                        <td><b>شاخص توده بدنی مطلوب</b>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>۱۷ تا ۲۴ سال
+                        </td>
+                        <td>۲۱
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td>۲۴ تا ۴۴ سال
+                        </td>
+                        <td>۲۴
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>۴۴ تا ۵۴ سال
+                        </td>
+                        <td>۲۵
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="lightgray">
+                        <td>۵۴ به بالا
+                        </td>
+                        <td>۲۷
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="wrp">
             <h2 id="title">کالری غذاهای مختلف</h2>
             <a
                 href="https://kermany.com/%DA%A9%D8%A7%D9%84%D8%B1%DB%8C-%D8%BA%D8%B0%D8%A7%D9%87%D8%A7%DB%8C-%D9%BE%D8%B1%D9%85%D8%B5%D8%B1%D9%81/">منبع
                 اطلاعات</a>
-            <table id="gradient-style" dir="rtl" border="0" width="100%">
+            <table dir="rtl" border="0" width="100%">
                 <tbody>
                     <tr id="heading">
                         <th width="140">ماده غذائی</th>
