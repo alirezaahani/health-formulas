@@ -1,0 +1,36 @@
+body {
+    background-color: lightgray;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: Sahel,Vazir,Tahoma,Noto sans;
+    direction: rtl;
+}
+input, button, select, option {
+    font-family: Sahel,Vazir,Tahoma,Noto sans;
+}
+pre {
+    font-size: 12px;
+    font-family: Monospace;
+    direction: ltr;
+}
+#title {
+    text-align: center;
+}
+#date {
+    font-size: 15px;
+}
+#catrgotie {
+    color:gray;
+    font-size: 15px;
+}
+#wrp {
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    transition-duration: 0.2s;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .78);
+}
+#wrp #wrp:hover {
+    background-color: rgb(241, 239, 239);
+    transition-duration: 0.2s;
+}
