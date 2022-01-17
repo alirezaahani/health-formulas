@@ -88,6 +88,23 @@
             bmi = round_to_n(bmi, 2);
             result.innerHTML = "شاخص توده بدنی: " + bmi;
         }
+        
+        function calculate_height_pred() {
+            let mother_height = document.getElementById("height_pred_mother").value;
+            let father_height = document.getElementById("height_pred_father").value;
+            let gender = document.getElementById("height_pred_gender").value;
+            let result = document.getElementById("height_pred_results");
+            result.style.display = "block";
+
+            if (mother_height == "" || father_height == "") {
+                result.innerHTML = "<strong>لطفا همه فیلد ها را پر کنید</strong>";
+                return;
+            }
+
+            let predicted_height = ((parseFloat(mother_height) + parseFloat(father_height)) / 2) + parseFloat(gender);
+
+            result.innerHTML = "میزان قد پیش بینی شده به سانتی متر: " + Math.floor(predicted_height);
+        }
     </script>
 </head>
 
@@ -165,6 +182,25 @@
             <button id="calc" onclick="calculate_bmi();">محاسبه</button>
 
             <span id="bmi_results" style='display:none;'></span>
+        </div>
+        
+        <div id="wrp">
+            <h2 id="title">محاسبه قد در بزرگسالی</h2>
+            <p>
+                این ابزار قد شما را در دوره بزرگسالی پیش بینی و محاسبه میکند.
+                <br>
+            </p>
+
+            <select name="height_pred_gender" id="height_pred_gender">
+                <option value="+6.5">پسر</option>
+                <option value="-6.5">دختر</option>
+            </select>
+            <input type="number" id="height_pred_mother" placeholder="قد مادر به سانتی متر">
+            <input type="number" id="height_pred_father" placeholder="قد پدر به سانتی متر">
+
+            <button id="calc" onclick="calculate_height_pred();">محاسبه</button>
+
+            <span id="height_pred_results" style='display:none;'></span>
         </div>
 
         <div id="wrp">
