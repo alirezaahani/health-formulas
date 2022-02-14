@@ -66,8 +66,6 @@
             let max_heartbeat = 220 - age;
             let X = (max_heartbeat - ave) * execrise_heartbeat;
             let reqired_heartbeat = X + ave;
-            reqired_heartbeat = round_to_n(reqired_heartbeat, 2);
-            max_heartbeat = round_to_n(max_heartbeat, 2);
 
             result.innerHTML = "ضربان قلب مورد نیاز شما برای تمرین: " + reqired_heartbeat + " ضربان قلب <br>حداکثر ضربان قلب: " + max_heartbeat + " ضربان قلب";
         }
